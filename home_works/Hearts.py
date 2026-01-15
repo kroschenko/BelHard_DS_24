@@ -50,11 +50,10 @@ print(res)
 #6
 features = ['age', 'trestbps', 'chol', 'thalach']
 
-df_minmax = pd.read_csv("heart.csv")
-
 for column in features:
-    df_minmax[column] = (( df_minmax[column] - df_minmax[column].min()) /
-    (df_minmax[column].max() - df_minmax[column].min()))
+    df[column] = (( df[column] - df[column].min()) /
+    (df[column].max() - df[column].min()))
 
 print("После Min-Max нормализации:")
+
 print(df.describe())
