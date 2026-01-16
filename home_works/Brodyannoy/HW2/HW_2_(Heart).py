@@ -57,11 +57,6 @@ df['sex'] = df['sex'].map({0: 'female', 1: 'male'})
 # создаю доп. колонки (One-Hot Encoding)
 df_sex_encoded = pd.get_dummies(df['sex'], prefix='sex')
 df = pd.concat([df, df_sex_encoded.astype(int)], axis=1)
-
-print(df[['sex_female', 'sex_male']].head())
-print(df[['sex_female', 'sex_male']].dtypes)
-
-
 df = df.drop("sex", axis=1)
 print(df.head())
 
