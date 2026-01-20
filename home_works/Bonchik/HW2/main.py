@@ -20,7 +20,7 @@ def task1():
     print("Количество пропусков по столбцам:")
     print(df.isnull().sum())
     print("-" * 50)
-    total_missing = df.isnull().sum().sum()
+    total_missing = df.isnull().sum().sum().item()
     print(f"Общее количество пропусков: {total_missing}")
     return df
 
@@ -83,6 +83,8 @@ def task3():
 
 
 def task4():
+    global df
+
     print("=" * 50)
     print("ЗАДАНИЕ 4: Преобразование признака sex и One-Hot Encoding")
     print("=" * 50)
@@ -95,16 +97,21 @@ def task4():
     print("\nПреобразованный столбец 'sex_category':")
     print(df[['sex', 'sex_category']].head(10))
 
-    sex_encoded = pd.get_dummies(df['sex_category'], prefix='sex')
-    df_new = pd.concat([df, sex_encoded], axis=1)
+    sex_encoded = pd.get_dummies(df['sex_category'], prefix='sex', dtype='int')
+    df = pd.concat([df, sex_encoded], axis=1)
 
     print("\nРезультат One-Hot Encoding:")
-    print(df_new[['sex', 'sex_category', 'sex_female', 'sex_male']].head(10))
+    print(df[['sex', 'sex_category', 'sex_female', 'sex_male']].head(10))
 
     print("\nПроверка преобразования:")
-    print(f"Количество женщин (sex_female=1): {df_new['sex_female'].sum()}")
-    print(f"Количество мужчин (sex_male=1): {df_new['sex_male'].sum()}")
-    return df_new
+    print(f"Количество женщин (sex_female=1): {df['sex_female'].sum()}")
+    print(f"Количество мужчин (sex_male=1): {df['sex_male'].sum()}")
+
+    # Удаляем исходные столбцы, так как они больше не нужны
+    df = df.drop(['sex', 'sex_category'], axis=1)
+    print("\nИсходные столбцы 'sex' и 'sex_category' удалены.")
+
+    return df
 
 
 def task5():
