@@ -16,7 +16,7 @@ X = df.drop(columns=["target"])
 y = df["target"]
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
+    X, y, test_size=0.2, stratify=y
 )
 
 print("Сбалансированность: ", y_train.value_counts())
@@ -33,7 +33,7 @@ st = SplineTransformer(n_knots=4, degree=3)
 X_train_spline = st.fit_transform(X_train)
 X_test_spline = st.transform(X_test)
 
-lr = LogisticRegression(random_state=42)
+lr = LogisticRegression()
 lr.fit(X_train_spline, y_train)
 
 feature_name = "age"
@@ -80,7 +80,7 @@ feat1, feat2 = "age", "thalach"
 X2 = df[[feat1, feat2]]
 y = df["target"]
 X_train, X_test, y_train2, y_test = train_test_split(
-    X2, y, test_size=0.2, random_state=42, stratify=y
+    X2, y, test_size=0.2, stratify=y
 )
 
 scaler = StandardScaler()
@@ -90,7 +90,6 @@ X_test_s = scaler.transform(X_test)
 # логистическая регрессия через SGD
 sgd = SGDClassifier(
     loss="log_loss",
-    random_state=42,
     max_iter=5000,
     tol=1e-4
 )
@@ -172,7 +171,7 @@ print(f"Лучшее k = {best_k}, accuracy = {best_acc:.4f}")
 print("Матрица ошибок:\n", confusion_matrix(y_test, y_pred_knn))
 print("Отчет:\n", classification_report(y_test, y_pred_knn))
 
-#4 ROC-анали
+#4 ROC-анализ
 fpr, tpr, thresholds = roc_curve(y_test, y_probs_lr)
 roc_auc = auc(fpr, tpr)
 print(f"\nПлощадь под ROC-кривой(AUC) для модели: {roc_auc:.4f}")
@@ -184,3 +183,4 @@ plt.ylabel('True Positive Rate (TPR) / Чувствительность')
 plt.title('Receiver Operating Characteristic(ROC) Analysis')
 plt.legend()
 plt.show()
+
