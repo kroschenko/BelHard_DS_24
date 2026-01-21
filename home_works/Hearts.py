@@ -36,8 +36,11 @@ plt.legend()
 plt.show()
 
 #4
+#4
 df['hum'] = df['sex'].map({0: 'female', 1: 'male'})
-df_encoded = pd.get_dummies(df, columns=['hum'])
+df_encoded = pd.get_dummies(df, columns=['hum']).astype(int)
+
+df_encoded.drop(columns=['sex'], inplace=True)
 
 print(df[['sex','hum']].head())
 print("\nOne-Hot Encoding:")
@@ -57,3 +60,4 @@ for column in features:
 print("После Min-Max нормализации:")
 
 print(df.describe())
+
