@@ -45,11 +45,9 @@ print("\nОбучение MLP модели...")
 
 mlp_simple = MLPRegressor(
     hidden_layer_sizes=(64, 32),
-    activation='logistic',
-    solver='sgd',
-    learning_rate='adaptive',
-    learning_rate_init=0.0005,
-    max_iter=5000,
+    activation='relu',
+    solver='adam',
+    max_iter=2000,
     random_state=42
 )
 
@@ -114,3 +112,4 @@ print(f"  R2 Score: {train_r2:.4f}")
 print(f"\nМетрики на тестовой выборке (линейная модель):")
 print(f"  MAE: {test_mae:.2f} г")
 print(f"  RMSE: {test_rmse:.2f} г")
+
